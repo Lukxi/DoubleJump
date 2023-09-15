@@ -1,4 +1,8 @@
 package me.lukxi.doublejump;
 
-public class DoubleJump {
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class DoubleJump extends JavaPlugin {
+
+
 }
