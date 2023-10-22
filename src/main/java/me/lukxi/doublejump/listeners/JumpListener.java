@@ -14,7 +14,7 @@ public class JumpListener implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         if (e.getPlayer().hasPermission("doublejump.use")){
-            e.getPlayer().setAllowFlight(true);
+            e.getPlayer().setAllowFlight(false);
             cooldown.put(e.getPlayer().getUniqueId(), false);
         }
     }
@@ -30,8 +30,12 @@ public class JumpListener implements Listener {
     public void onFlightActivation(PlayerToggleFlightEvent e){
         if (e.getPlayer().hasPermission("doublejump.use") && e.getPlayer().getGameMode() == GameMode.SURVIVAL){
             e.setCancelled(true);
+            if (!cooldown.containsKey(e.getPlayer().getUniqueId())){
+                cooldown.put(e.getPlayer().getUniqueId(), false);
+            }
             if (!cooldown.get(e.getPlayer().getUniqueId())){
                 e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().setY(1.5));
+                e.getPlayer().setAllowFlight(false);
                 cooldown.put(e.getPlayer().getUniqueId(), true);
             }
         }
@@ -42,6 +46,7 @@ public class JumpListener implements Listener {
         if (!e.getPlayer().hasPermission("doublejump.use")) return;
         if (!e.getPlayer().isOnGround()) return;
         cooldown.replace(e.getPlayer().getUniqueId(), false);
+        e.getPlayer().setAllowFlight(true);
     }
 
     @EventHandler
