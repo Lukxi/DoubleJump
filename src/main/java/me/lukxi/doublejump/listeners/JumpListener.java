@@ -34,7 +34,7 @@ public class JumpListener implements Listener {
                 cooldown.put(e.getPlayer().getUniqueId(), false);
             }
             if (!cooldown.get(e.getPlayer().getUniqueId())){
-                e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().setY(1.5));
+                e.getPlayer().setVelocity(e.getPlayer().getLocation().getDirection().multiply(1.5).setY(1.5));
                 e.getPlayer().setAllowFlight(false);
                 cooldown.put(e.getPlayer().getUniqueId(), true);
             }
